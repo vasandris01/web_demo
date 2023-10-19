@@ -1,10 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 </head>
 <body>
-$END$
+<h1 th:text="${message}"></h1>
+<a th:href="@{/home}">
+    <h1>HOME</h1>
+</a>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Birth Date</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tr th:each="actual : ${persons}">
+        <td th:text="${actual.name}"></td>
+        <td th:text="${actual.birthDate}"></td>
+        <td th:text="${actual.email}"></td>
+        <td>
+            <form th:action="@{/delete}" method="post">
+                <input name="actual" type="hidden" th:value="${actual.name}">
+                <button type="submit">DELETE</button>
+            </form>
+        </td>
+    </tr>
+    <form th:action="@{/new}" method="post">
+        <tr>
+            <td>
+                <input type="text" th:field="*{new_person.name}">
+            </td>
+            <td>
+                <input type="date" th:field="*{new_person.birthDate}">
+            </td>
+            <td>
+                <input type="email" th:field="*{new_person.email}">
+            </td>
+            <td>
+                <button type="submit">OK</button>
+            </td>
+        </tr>
+    </form>
+</table>
 </body>
 </html>
